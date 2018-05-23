@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+    <title>
+        DESCUBRE LAS PAREJAS CON CRONOMETRO
+    </title>
+    <link rel="stylesheet" type="text/css" href="estilo2.css">
+    <script language="javascript" src = "lib/easytimer/dist/easytimer.js">
+    
+        window.onload = iniciarTablero;
+        var imagen_tocada = false;
+        var primer_img_tocada; var segunda_imagen_tocada;
+        var num_aciertos = 0;//representa el número de aciertos que lleva el usuario
+        const TOTAL_ACIERTOS = 2;//número de aciertos totales para dar por concluido el juego
+
+        function iniciarTablero() {
+            console.log("Inicia Tablero . . .");
+            var timerInstance = new Timer();
+            
+        console.log("prueba "+timerInstance);
+
+            
+            //Asignar los listeners
+            var td_actual;
+            var hijo_img;
+            var lista_td = document.querySelectorAll("td");
+            for (var i = 0; i < lista_td.length; i++) {
+                td_actual = lista_td[i];
+                td_actual.addEventListener('click', tocadoImagen);
+                hijo_img = td_actual.firstElementChild;
+                console.log(hijo_img instanceof Element);
+                hijo_img.style.visibility = 'hidden';
+            }
+            console.log("Fin Inicia Tablero . . .");
+            //Ocultar las imágenes
+        }
+
+        function tocadoImagen(evento) {
+
+            console.log("El usuario tocó el td");
+
+            // SI la imagen que ha tocado está visible --> no hago nada
+            //si no, caso general
+            var especial = evento.currentTarget.firstElementChild; //accedo a la imagen tocada
+            if (especial.style.visibility == 'hidden') {
+                if (!imagen_tocada) //imagen_tocada es false
+                { //1er intento
+                    //obtengo imagen
+                    console.log("1 er intento");
+                    primer_img_tocada = evento.currentTarget.firstElementChild;
+                    primer_img_tocada.style.visibility = 'visible';
+                    imagen_tocada = true;
+                } else { //2º intento imagen_tocada es true
+                    console.log("2 o intento");
+                    segunda_imagen_tocada = evento.currentTarget.firstElementChild;
+                    segunda_imagen_tocada.style.visibility = 'visible';
+                    imagen_tocada = false;//para volver al primer casos
+                    var nombre_img_1 = primer_img_tocada.src;
+                    var nombre_img_2 = segunda_imagen_tocada.src;
+                    if (nombre_img_1.localeCompare(nombre_img_2) == 0) {
+                        console.log("Acierto");
+                        num_aciertos = num_aciertos + 1;//num_aciertos++
+                        if (num_aciertos == TOTAL_ACIERTOS) {
+                            console.log("Ha ganado");
+                            //alert ("Has ganado socio, ENHORABUENA");
+                            location.href = "http://www.cnn.com";
+                        }
+
+                    } else {
+                        console.log("FALLO, las tapo");
+                        setTimeout(voltear, 1500);
+                    }
+
+                }
+            }
+        }
+        function voltear() {
+            primer_img_tocada.style.visibility = 'hidden';
+            segunda_imagen_tocada.style.visibility = 'hidden';
+        }
+    </script>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td>
+                <img src="delgado.jpeg">
+            </td>
+            <td>
+                <img src="pantera.jpg">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="delgado.jpeg">
+            </td>
+            <td>
+                <img src="pantera.jpg">
+            </td>
+        </tr>
+    </table>
+
+    <div id = "basicUsage"> 00:00:00 </div>
+</body>
+
+</html>

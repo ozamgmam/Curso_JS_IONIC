@@ -1,0 +1,47 @@
+<html>
+<head>
+    <title>Memory</title>
+<link rel="stylesheet" type="text/css" href="estilo.css">
+<script type="text/javascript">
+
+function ocultaMuestra(div_tocado) {
+  var img_tocado = div_tocado.firstElementChild;
+  var estilo = img_tocado.style.visibility;
+  if (estilo == 'visible' || estilo == '') {
+    img_tocado.style.visibility = 'hidden';
+  }
+  else {
+    img_tocado.style.visibility = 'visible';
+  }
+}
+</script>
+
+
+</script>
+</head>
+<body>
+    <h3>Memory</h3>
+    <div id="div_02" onclick="ocultaMuestra(this)">
+        <img src="images_memory/estrella_azul.jpg" style="visibility:hidden";/>
+    </div>
+    <div onclick="ocultaMuestra(this)">
+        <img src="images_memory/estrella-de-mar-girasol.jpg" style="visibility:hidden"; />
+    </div>
+    <div onclick="ocultaMuestra(this)">
+        <img src="images_memory/estrella-mar-grande.jpg" style="visibility:hidden";> 
+    </div>    
+    
+    
+    <div onclick="ocultaMuestra(this)">
+        <img src="images_memory/estrella_azul.jpg" style="visibility:hidden";/>
+    </div>
+    <div onclick="ocultaMuestra(this)">
+        <img src="images_memory/estrella-mar-grande.jpg" style="visibility:hidden"; />
+    </div>
+    <div onclick="ocultaMuestra(this)">
+        <img src="images_memory/estrella-de-mar-girasol.jpg" style="visibility:hidden";> 
+    </div>    
+    
+
+</body>
+

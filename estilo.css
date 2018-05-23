@@ -1,0 +1,24 @@
+div {
+    width: 200px;
+    height: 200px;
+    cursor: pointer;
+    border:2px solid blue;
+    float: right;
+}
+
+div img_02 {
+    position:relative;
+    display:block;
+    margin:10px;
+    float:left;
+    min-height:150px;
+    width:300px;
+    background:#ccc;
+}
+
+div img {
+    height: 100%; 
+    width: 100%; 
+    object-fit: contain;
+    float: right;
+}

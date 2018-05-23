@@ -1,0 +1,47 @@
+<html>
+
+<head>
+    <title>INTRODUZCA TRES NÚMEROS Y DIGA CUÁL ES EL MAYOR</title>
+    <script>
+        /*var str_resultado="";
+       var numeroMayor="";*/
+
+
+        function comparaTusNumeros() {
+            //recojo los valores que ha metido el usario
+            var n1 = document.getElementById("n1").value;
+            var n2 = document.getElementById("n2").value;
+            var n3 = document.getElementById("n3").value;
+
+            if (n1 > n2) { // estamos en el caso de que n1 es mayor que n2
+                if (n1 > n3) {
+                    alert(n1 + " es el mayor de los tres");
+                } else {// n3 es el mayor
+                    alert(n3 + " es el mayor de los tres");
+                }
+
+            } //fin del caso donde n1 es mayor que n2
+            else { //n2 es mayor que n1... n2 "va ganando"
+                if (n2 > n3) {
+                    alert(n2 + " es el mayor de los tres");
+                } else {// n3 es el mayor de los tres
+                    alert(n3 + " es el mayor de los tres");
+                }
+
+            }
+        }
+
+    </script>
+
+</head>
+
+<body>
+    <h3>INTRODUCE TRES NÚMEROS Y DIME CUÁL ES EL MAYOR</h3>
+    <input type=number id="n1"> ,
+    <input type=number id="n2"> ,
+    <input type=number id="n3">
+    <button onclick="comparaTusNumeros();">Tu número mayor es…</button>
+
+</body>
+
+</html>

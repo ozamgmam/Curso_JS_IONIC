@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+    <title>INTRODUCE UNA PALABRA Y MUESTRAMELA AL REVÉS</title>
+    <script type="text/javascript">
+
+function injertaPalabra()
+    {
+        var palabra = document.getElementById("injertaPalabra").value;
+        console.log ("Palabra insertada = " + palabra);
+        
+        var mayorEdad;
+        var soyMayorDeEdad = document.getElementById("mayorEdad").innerHTML = (65 > 18);
+
+        if (edad<18)
+            {
+                alert("Aún tienes que obedecer a tus mayores");
+            }
+        else if (edad<65)
+            {
+                alert("Te faltan unos añitos para viajar barato, con el inserso");
+            }
+        else if (65<edad)
+            {
+                alert("¡ENHORABUENA! No te pases con las pastis, ¡AHORA QUE PUEDES!")
+            }
+    }
+ 
+
+
+    </script>
+</head>
+
+<body>
+    <h2>Cualquier palabra que escribas te la devuelvo del revés</h2>
+    Injerta tu palabra en la cajita <input type="text" id="injertaPalabra"> <button onclick="palabraReves();">Alucina</button>
+</body>
+
+</html>

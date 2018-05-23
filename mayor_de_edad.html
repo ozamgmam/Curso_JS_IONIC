@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+    <title>MAYOR DE EDAD O NO</title>
+    <script type="text/javascript">
+
+function soyMayorDeEdad()
+    {
+        var edad = document.getElementById("mayorEdad").value;
+        console.log ("edad introducidda = " + edad);
+        
+        var mayorEdad;
+        var soyMayorDeEdad = document.getElementById("mayorEdad").innerHTML = (65 > 18);
+
+        if (edad<18)
+            {
+                alert("Aún tienes que obedecer a tus mayores");
+            }
+        else if (edad<65)
+            {
+                alert("Te faltan unos añitos para viajar barato, con el inserso");
+            }
+        else (65<edad)
+            {
+                alert("¡ENHORABUENA! No te pases con las pastis, ¡AHORA QUE PUEDES!")
+            }
+    }
+ 
+
+
+    </script>
+</head>
+
+<body>
+    <h2>¿Eres mayor de edad?</h2>
+    Introduce tu edad <input type="number" id="mayorEdad"> <button onclick="soyMayorDeEdad();">Averigua</button>
+</body>
+
+</html>
