@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Codificacion de Texto</title>
+    <link rel="stylesheet" type="text/css" href="codificacion.css">
+    <script>
+        var xmlHttp = new XMLHttpRequest();
+        const DIR_SERV = "http://10.1.2.10:8080/appwebprofe/ObtenerClave"
+        var clave = 0;
+        window.onload = obtenerClave;
+
+        function obtenerClave() {
+
+            //xmlHttp.onreadystatechange = procesarEvento;
+            xmlHttp.open('GET', DIR_SERV, false);
+            xmlHttp.send(null);//El cuerpo del mensaje vacío
+            clave = xmlHttp.responseText;
+            clave = parseInt(clave);
+
+        }
+        function encriptar(mensaje_original) {
+            var encriptado = "";
+            var longitud_mo = mensaje_original.length;
+            var letra_actual;
+            var codigo_letra=0;
+            for (var indice = 0; indice < longitud_mo; indice = indice + 1) {
+                letra_actual = mensaje_original.charAt(indice);
+                codigo_letra = mensaje_original.charCodeAt(indice)+clave;
+                encriptado = encriptado + codigo_letra;
+            }
+
+            return encriptado;
+        }
+        function recogerTexto() {
+
+            var original = document.getElementById("original").value;
+            var m_encriptado = encriptar(original);
+            document.getElementById("codificado").value = m_encriptado;
+        }
+
+
+        function enviarMensaje() {
+//POST a EnviarMensaje {mensaje_original, mensaje_cifrado, clave}
+        }
+
+    </script>
+</head>
+
+<body>
+    <textarea name="texto_original" id="original" cols="40" rows="20"></textarea>
+    <button onclick="recogerTexto();">Codificar </button>
+    <textarea name="texto_codificado" id="codificado" cols="40" rows="20"></textarea>
+    <button onclick="enviarMensaje();">Enviar </button>
+</body>
+
+</html>

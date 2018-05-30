@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+        <meta charset="utf-8"/>
+        <meta name="viewport" content"width=device-width, initial-scale=1,maximum-scale=1"/>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Carga Cancione en Itunes</title>
+<style>
+    td{
+        max-width: 300px;
+    }
+</style>
+   
+<script>
+    var xmlHttp;
+    var url;
+    var lista;
+    var tabla;
+
+    onload=inicio;
+
+function inicio(){
+    var xmlHttp = new XMLHttpRequest();
+    tabla=document.getElementById("tabla")
+}
+function procesarEventosRecibir(){
+    console.log("Procesar eventos Invocado Recibir"+xmlHttp.readyState+". Status"+xmlHttp.status);
+    if (xmlHttp.readyState==4&&xmlHttp.status==200){
+    lista=xmlHttp.responseText;
+    lista=JSON.parse(lista);
+    lista=lista.results;
+    imprimirLista();
+}
+    else{
+        lista="ERROR";
+    }
+}
+function obtenerListaRemota(){
+    buscando();
+    xmlHttp.onreadystatechange=procesarEventosRecibir;
+    xmlHttp.open('GET',url,true);
+    xmlHttp.setRequestHeader('Content-Type','application/json');
+    xmlHttp.send(null);
+}        
+
+function buscarCancion()
+{
+    var busqueda = document.getElementById("caja").value;
+    var url = "https://itunes.apple.com/search?term="+busqueda+"&media=music&limit=20";
+    console.log(url);
+    obtenerListaRemota();
+}
+function imprimirLista(){
+    document.getElementById("gif").hidden=true;
+
+    var cancion;
+    var array_fila=new Array;
+    var array_campos=["Titulo","Artista","Imagen","Preview","Precio","Seleccionar"];
+
+    if (lista.lenght>0){
+        crearCabecera(array_campos);
+
+        for(i=0;i<lista.lenght;i++){
+            cancion=document.createElement("TR");
+            cancion.id="cancion"+i;
+            if(i%2==0){
+                cancion.style.background="#E3F6CE";
+            }
+            else {
+                cancion.style.background="#086A87";
+            }
+        tabla.appendChild(cancion);
+        array_fila=[
+            lista[i].trackName,
+            lista[i].artistName,
+            "<img src=" +lista[i].artworkUrl100+">",
+            "<audio src=" +lista[i].previewUrl+"controls>",
+            (lista[i].trackPrice+2)+" "+lista[i].currency,
+            "<input type='checkbox' name='comprar' value='" +lista[i].trackId+ "'>"]
+        crearFila(i,array_fila);
+        document.getElementById("boton_compra").hidden=false;
+        }
+    }
+    else{
+        tabla.innerHTML="No hay resultados para tu busqueda";
+    }
+}
+function buscando(){
+    document.getElementById("gif").hidden=false;
+    document.getElementById("tabla").innerHTML="";
+}
+function crearCabecera(array){
+    var cab;
+    for (i=0; i<array.lenght; i++){
+        cab=document.createElement("TH");
+        cab.innerHTML=array[i];
+        tabla.appendChild(cab);
+    }
+}
+
+</script>
+
+<body>
+<h3>Introduce el nombre de tu grupo</h3>
+    <input type="text" id="listarCanciones">
+        <button onclick="buscarCancion();">Listar canciones</button>
+
+        <table border="1" align="center">
+            <caption><h2>Listas de canciones, con su portada y todo</h2></caption>
+              <tr>
+                  <th>Nombre de la canción</th>
+                  <th>Foto de portada</th>
+                  <th>Precio del vinilo</th>
+                  <th>subtotal</th>
+              </tr>
+              <tr>
+                  <td id="tema"></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+              </tr>
+              <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+              </tr>
+              <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+              </tr>
+              <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+              </tr>
+              <tr>
+                  <th>TOTAL</th>
+                  <th>—————————</th>
+                  <th></th>
+                  <th></th>
+              </tr>
+      </table>
+
+
+</body>
+</html>

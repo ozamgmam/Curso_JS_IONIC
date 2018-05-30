@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+    <title>Formulario</title>
+
+<script>
+var xmlHttp=new XMLHttpRequest();
+const DIR_SERV= "http://10.1.2.10:8080/appwebprofe/RegistrarPersona"
+
+    function procesarEventos()
+    {
+        console.log("Procesar eventos invocados" + xmlHttp.readyState);
+        if(xmlHttp.readyState==4)
+        {
+            console.log(xmlHttp.responseText);
+        }
+        //cuando éste sea 4, procesamos el mensaje HTTP de respuesta
+    }
+
+    function enviaDatos()
+    {
+        var elNombre=document.getElementById("nombre").value;
+        var laEdad=document.getElementById("edad").value;
+
+    console.log("nombre" + elNombre + "edad" + laEdad);
+
+        var persona= {
+            nombre:elNombre,
+            edad:laEdad
+        }
+    
+    alert("persona intro= " + persona.nombre);
+    alert("persona intro= " + persona.edad);
+
+    var personaJson=JSON.stringify(persona);
+    console.log(personaJson);
+//PREPARO LA LLAMADA
+    xmlHttp.onreadystatechange = procesarEventos;
+    xmlHttp.open('POST', DIR_SERV, true); //indicamos como vamos a enviar los datos, en este caso con el método POST (que es como de contraseña)
+    xmlHttp.setRequestHeader('Content-Type', 'application/json');
+    xmlHttp.send(personaJson);//El cuerpo del mensaje
+    }
+    
+</script>
+</head>
+
+<body>
+
+    <h2>Inserta tu nombre y edad</h2>
+Injerta tu nombre <input type="text" id="nombre"></input>
+Introduce <strong>toda</strong> tu edad <input type="number" id="edad"></input>
+<button onclick="enviaDatos();">Enviar ya!!!</button>
+
+
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+
+	<head>
+	
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>Cifrado_Ajax</title>
+            <script type="text/javascript">
+            
+        var xmlHttp = new XMLHttpRequest();
+        const DIR_SERV = "http://10.1.2.10:8080/appwebprofe/ObtenerClave"
+        var clave = 0;
+        window.onload = obtenerClave;
+    
+    function obtenerClave()
+    {
+        //xmlHttp.onreadystatechange=procesar Evento;
+        xmlHttp.open('GET', DIR_SERV, false);
+        xmlHttp.send(null);//El cuerpo del mensaje vacío
+        clave=xmlHttp.responseText;
+        clave=parseInt(clave);
+
+    }
+    
+    
+    function encriptar(mensaje_original)
+    {
+        var encriptado="";
+        var longitud_mo=mensaje_original.length;
+        var letra_actual;
+        var codigo_letra=0;
+        for (var indice=0;indice<longitud_mo;indice=indice+1)
+        {
+            letra_actual=mensaje_original.charAt(indice);
+            codigo_letra=mensaje_original.charAt(indice)+clave;
+            encriptado=encriptado+codigo_letra;
+
+        }
+
+        return encriptado;
+    }
+    function recogerTexto() 
+        {
+            var original=document.getElementById("original").value;
+            var m_encriptado=encriptar(original);
+            document.getElementById("codificado").value=m_encriptado;
+        }
+
+    /*function cogerClave() 
+        {
+            xmlHttp.open('GET', DIR_SERV, true);//true es que es asincrono y 
+            xmlHttp.setRequestHeader('Content-Type', 'applicationç/json');//app
+            xmlHttp.send(null);//El cuerpo del mensaje
+            clave=parseInt(xmlHttp.responseText);
+        }
+*/
+    function enviarMensaje(){
+        //POST a enviarMensaje {mensaje_original, mensaje_cifrado, clave}
+    }
+            </script>
+    </head>
+
+    <body>
+            <textarea id="original" rows="20" cols="50" ></textarea>
+                <button onclick="recogerTexto();">Codificar</button>
+            <textarea id="codificado" rows="20" cols="50"></textarea>
+                <button onclick="enviarMensaje();">Enviar</button>
+
+
+
+    </body>
+</html>
