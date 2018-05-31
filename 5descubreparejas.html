@@ -1,0 +1,154 @@
+<html>
+
+<head>
+    <title>
+        WEB CON JS
+    </title>
+    <link rel="stylesheet" type="text/css" href="estilo2.css">
+    <script src="https://albert-gonzalez.github.io/easytimer.js/dist/easytimer.min.js"></script>
+    <script language="javascript">
+        window.onload = iniciarTablero;
+        var reloj;
+        var imagen_tocada = false;
+        var primer_img_tocada; var segunda_imagen_tocada;
+        var num_aciertos = 0;//representa el número de aciertos que lleva el usuario
+        const TOTAL_ACIERTOS = 2;//número de aciertos totales para dar por concluido el juego
+        var abierto = true;
+        var xmlHttp = new XMLHttpRequest();
+        const DIRECCION = "http://10.1.2.10:8080/appwebprofe/SubirRecord";
+
+        function actualizarReloj() {
+            reloj.addEventListener('secondsUpdated', function (e) {
+                document.getElementById("tiempo").innerHTML = reloj.getTimeValues().toString();
+            });
+        }
+        function iniciarTablero() {
+            console.log("Inicia Tablero . . .");
+
+            //Asignar los listeners
+            var td_actual;
+            var hijo_img;
+            var lista_td = document.querySelectorAll("td");
+            for (var i = 0; i < lista_td.length; i++) {
+                td_actual = lista_td[i];
+                td_actual.addEventListener('click', tocadoImagen);
+                hijo_img = td_actual.firstElementChild;
+                console.log(hijo_img instanceof Element);
+                hijo_img.style.visibility = 'hidden';
+            }
+            console.log("Fin Inicia Tablero . . .");
+            //Ocultar las imágenes
+            reloj = new Timer();
+            reloj.start();
+            actualizarReloj();
+        }
+
+        function enviar(tiempo_f) {
+            var resultado = {
+                tiempo: tiempo_f,
+                nombre: 'Obdulia'
+            }
+            var resultado_json = JSON.stringify(resultado);
+            xmlHttp.onreadystatechange = dibujarTabla;
+            xmlHttp.open('POST', DIRECCION, true);
+            xmlHttp.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+            xmlHttp.send(resultado_json);
+
+
+        }
+
+        function dibujarTabla ()
+        {
+            if (xmlHttp.readyState==4)
+            {
+                console.log ("ha vuelto");
+                if (xmlHttp.status==200)
+                {
+                    console.log ("ha vuelto BIEN " + xmlHttp.responseText);
+                    
+                } else 
+                {
+                    console.log ("ha vuelto MAL"  + xmlHttp.responseText);
+                }
+            }
+
+        }
+
+        function tocadoImagen(evento) {
+
+            console.log("El usuario tocó el td");
+
+            // SI la imagen que ha tocado está visible --> no hago nada
+            //si no, caso general
+            var especial = evento.currentTarget.firstElementChild; //accedo a la imagen tocada
+            if ((especial.style.visibility == 'hidden') && (abierto)) {
+                if (!imagen_tocada) //imagen_tocada es false
+                { //1er intento
+                    //obtengo imagen
+                    console.log("1 er intento");
+                    primer_img_tocada = evento.currentTarget.firstElementChild;
+                    primer_img_tocada.style.visibility = 'visible';
+                    imagen_tocada = true;
+                } else { //2º intento imagen_tocada es true
+                    console.log("2 o intento");
+                    segunda_imagen_tocada = evento.currentTarget.firstElementChild;
+                    segunda_imagen_tocada.style.visibility = 'visible';
+                    imagen_tocada = false;//para volver al primer casos
+                    var nombre_img_1 = primer_img_tocada.src;
+                    var nombre_img_2 = segunda_imagen_tocada.src;
+                    if (nombre_img_1.localeCompare(nombre_img_2) == 0) {
+                        console.log("Acierto");
+                        num_aciertos = num_aciertos + 1;//num_aciertos++
+                        if (num_aciertos == TOTAL_ACIERTOS) {
+                            console.log("Ha ganado");
+                            //alert ("Has ganado socio, ENHORABUENA");
+                            reloj.stop();
+                            var tiempo_final = document.getElementById("tiempo").innerHTML;
+                            console.log("tiempo " + tiempo_final);
+                            enviar(tiempo_final);
+                            //TODO Obtener el tiempo empleado y enviarlo
+                            //location.href = "http://www.cnn.com";
+
+                        }
+
+                    } else {
+                        console.log("FALLO, las tapo");
+                        abierto = false;
+                        setTimeout(function () { voltear(primer_img_tocada, segunda_imagen_tocada) },
+                            900);
+                    }
+
+                }
+            }
+        }
+        function voltear(primer_img_tocadal, segunda_imagen_tocadal) {
+            primer_img_tocadal.style.visibility = 'hidden';
+            segunda_imagen_tocadal.style.visibility = 'hidden';
+            abierto = true;
+        }
+    </script>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td>
+                <img src="delgado.jpeg">
+            </td>
+            <td>
+                <img src="pantera.jpg">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="delgado.jpeg">
+            </td>
+            <td>
+                <img src="pantera.jpg">
+            </td>
+        </tr>
+    </table>
+    <div id="tiempo"></div>
+</body>
+
+</html>
