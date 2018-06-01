@@ -57,15 +57,22 @@
             if (NOMBRE_VALIDADO.test(nombre))
                 {
                 console.log = ("nombre bien: " + nombre);
-
                 }
-            else if(nombre_validado=false)
+            else if(NOMBRE_VALIDADO=false)
                 {
                 alert("Haz el favor de escribir un nombre, ¡por favor!");
                 }
             
             }
-
+            
+            if (EMAIL_VALIDADO.test(direccionEmail))
+            {
+                console.log = ("email bien: " + email);
+            }
+            else if(EMAIL_VALIDADO=false);
+            {
+                alert("Comprueba que es el e-mail, ¡tesoro!")
+            }
         function enviarDatos() {
             var nombre = document.getElementById("nombre").value;
             var email = document.getElementById("direcionEmail").value;
