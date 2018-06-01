@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Formulario_02</title>
+</head>
+
+<body>
+    <h3 align="center">Rellena este formulario y que lo validen tanto el cliente como el servidor</h3>
+
+    <form>
+        <table id="formulario" align="center" cellspacing="6px" text-align="left">
+            <tr>
+                <td>Nombre:
+                    <input type="name" name="nombre">
+                </td>
+            </tr>
+            <tr>
+                <td>E-mail:
+                    <input type="email" name="direccionEmail">
+                </td>
+            </tr>
+            <tr>
+                <td>Cumpleaños:
+                    <input type="date" name="cumpleanos">
+                </td>
+            </tr>
+            <tr>
+                <td>Contraseña:
+                    <input type="password" name="login">
+                </td>
+            </tr>
+        </table>
+    </form>
+    <form align=center cellspacing="20px">
+        <input type="submit" value="Enviar">
+        <input type="reset" value="Restablecer">
+    </form>
+
+    <script type="text/javascript">
+
+        var xmlHttp = new XMLHttpRequest();
+        const DIR_SERV = "http://10.1.2.10:8080/appwebprofe/Login"
+        const NOMBRE_VALIDADO = /^\w{6,}$/; //El mail y el usuario deben tener al menos 6 caracteres formado por letras, números o guiones bajos
+        const EMAIL_VALIDADO = /^\w+([\.\+\-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
+        const EXPRESION_REGULAR_TELEFONO = /^\+\d{7,15}$/;
+        const LOGIN = /^\w{6,15}$/; 
+
+
+        function recogerDatos() {
+            var nombre = document.getElementById("nombre").value;
+            var nombre_validado=NOMBRE_VALIDADO;
+            var email = document.getElementById("direcionEmail").value;
+            var cumpleanos = document.getElementById("cumpleanos").value;
+            console.log = ("he pillado los datos y los tengo registrados" + "nombre" + "email" + "cumpleanos");
+
+            if (nombre_validado=true)
+                {
+                nombre=nombre_validado;
+                }
+            else if(nombre_validado=false)
+                {
+                alert("Haz el favor de escribir un nombre, ¡por favor!");
+                }
+            
+            }
+
+        function enviarDatos() {
+            var nombre = document.getElementById("nombre").value;
+            var email = document.getElementById("direcionEmail").value;
+            var cumpleanos = document.getElementById("cumpleanos").value;
+
+
+            console.log = ("he pillado los datos y los tengo registrados" + "nombre" + "email" + "cumpleanos");
+
+
+
+        }
+
+    </script>
+
+</body>
+
+</html>
