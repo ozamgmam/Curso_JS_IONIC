@@ -13,30 +13,30 @@
         <table id="formulario" align="center" cellspacing="6px" text-align="left">
             <tr>
                 <td>Nombre:
-                    <input type="name" name="nombre">
+                    <input type="name" id="nombre">
                 </td>
             </tr>
             <tr>
                 <td>E-mail:
-                    <input type="email" name="direccionEmail">
+                    <input type="email" id="direccionEmail">
                 </td>
             </tr>
             <tr>
                 <td>Cumpleaños:
-                    <input type="date" name="cumpleanos">
+                    <input type="date" id="cumpleanos">
                 </td>
             </tr>
             <tr>
                 <td>Contraseña:
-                    <input type="password" name="login">
+                    <input type="password" id="login">
                 </td>
             </tr>
         </table>
     </form>
-    <form align=center cellspacing="20px">
-        <input type="submit" value="Enviar">
+    <div align=center cellspacing="20px">
+        <button onclick="recogerDatos()">Enviar</button>
         <input type="reset" value="Restablecer">
-    </form>
+    </div>
 
     <script type="text/javascript">
 
@@ -50,14 +50,14 @@
 
         function recogerDatos() {
             var nombre = document.getElementById("nombre").value;
-            var nombre_validado=NOMBRE_VALIDADO;
-            var email = document.getElementById("direcionEmail").value;
+            var email = document.getElementById("direccionEmail").value;
             var cumpleanos = document.getElementById("cumpleanos").value;
             console.log = ("he pillado los datos y los tengo registrados" + "nombre" + "email" + "cumpleanos");
 
-            if (nombre_validado=true)
+            if (NOMBRE_VALIDADO.test(nombre))
                 {
-                nombre=nombre_validado;
+                console.log = ("nombre bien: " + nombre);
+
                 }
             else if(nombre_validado=false)
                 {
